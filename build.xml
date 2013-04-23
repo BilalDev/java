@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<!-- ======================================================================
+     General Ant File of Survivor Project
+     YAKA Team
+     ====================================================================== -->
+<project name="all" default="all" basedir=".">
+  <description>
+    This file helps building the survivor.
+  </description>
+
+  <property name="project" value="survivor" />
+  <property name="src.home" value="${basedir}/src" />
+  <property name="tests.home" value="${basedir}/tests" />
+  <property name="build.home" value="${basedir}/build" />
+  <property name="jar.file" value="survivor.jar" />
+  <property name="main.class" value="survivor.Main" />
+
+  <property name="compile.debug" value="true" />
+
+
+  <!-- =================================
+       targets
+       ================================= -->
+
+  <target name="all" depends="distclean, jar"
+	  description="Clean build, then create the jars" />
+
+  <target name="build" description="Compile Java sources">
+    <mkdir dir="${build.home}" />
+    <javac srcdir="${src.home}" destdir="${build.home}" debug="${compile.debug}">
+      <classpath>
+	<pathelement location="${basedir}/lib/libcommon.jar" />
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="build" description="Create ${jar.file}">
+    <jar destfile="${basedir}/${jar.file}" basedir="${build.home}">
+      <zipfileset src="${basedir}/lib/libcommon.jar" />
+      <manifest>
+	<attribute name="Main-Class" value="${main.class}" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="clean" description="Delete old builds">
+    <delete dir="${build.home}" failonerror="false" />
+  </target>
+
+  <target name="distclean" depends="clean"
+	  description="Delete old builds and jar files">
+    <delete file="${basedir}/${jar.file}" failonerror="false" />
+  </target>
+
+  <target name="check" description="Start the testsuite">
+    <ant dir="${tests.home}" target="all" />
+  </target>
+
+  <target name="doc" description="Generate the documentation">
+    <echo message="FIXME" />
+  </target>
+
+</project>

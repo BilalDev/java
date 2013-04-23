@@ -6,6 +6,7 @@ check/*
 check/*/*
 doc/*
 
+!build.xml
 
 # Package Files #
 *.jar
