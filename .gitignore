@@ -1,6 +1,11 @@
 *.class
 .classpath
 .project
+*.xml
+check/*
+check/*/*
+doc/*
+
 
 # Package Files #
 *.jar
